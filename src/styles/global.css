@@ -1,0 +1,8 @@
+@import url('./fonts.css');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: burlywood;
+  font-family: 'Noto Sans CJK KR';
+}

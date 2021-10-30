@@ -9,7 +9,7 @@ const Medium = styled.div`
 `
 
 const Bold = styled.div`
-  font-weight: bold;
+  font-weight: 700;
 `
 
 const IndexPage = () => {

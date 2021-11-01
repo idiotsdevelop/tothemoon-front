@@ -1,5 +1,16 @@
+import styled from 'styled-components'
+import CoinList from '../components/CoinList'
+
+const CoinListContainer = styled.div`
+  margin: 10px;
+`
+
 const MarketPage = () => {
-  return <div>market</div>
+  return (
+    <CoinListContainer>
+      <CoinList />
+    </CoinListContainer>
+  )
 }
 
 export default MarketPage

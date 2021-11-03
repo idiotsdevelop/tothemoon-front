@@ -6,9 +6,8 @@ import CoinListDetail from './CoinListDetail'
 
 const Wrapper = styled.div`
   overflow: scroll;
-  max-width: 20vw;
-
-  max-height: 100vh;
+  min-width: 20vw;
+  max-height: 1300px;
   background-color: #121721;
   border-radius: 7px;
 `

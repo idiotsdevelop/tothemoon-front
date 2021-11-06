@@ -3,6 +3,8 @@ import {ReactComponent as SearchIcon} from '../public/images/svg/search.svg'
 import {ReactComponent as ToolIcon} from '../public/images/svg/tool.svg'
 import {ReactComponent as OrderIcon} from '../public/images/svg/order.svg'
 import CoinListDetail from './CoinListDetail'
+import {useWebSocket} from '../contexts/webSocket'
+import {useState} from 'react'
 
 const Wrapper = styled.div`
   overflow: scroll;
@@ -94,426 +96,472 @@ const listHeaders = [
   {title: '거래대금(24H)'},
 ]
 
-const coins = [
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-  {
-    asset: {
-      name: '비트코인',
-      ticker: 'BTC/KRW',
-    },
-    currentPrice: 75110000,
-    change: {
-      rate: 2.01,
-      price: 1537000,
-    },
-    volume: {
-      number: 265006,
-      unit: '백만',
-    },
-    increase: false,
-  },
-  {
-    asset: {
-      name: '이더리움',
-      ticker: 'ETH/KRW',
-    },
-    currentPrice: 5053000,
-    change: {
-      rate: 0.56,
-      price: 28000,
-    },
-    volume: {
-      number: 143769,
-      unit: '백만',
-    },
-    increase: true,
-  },
-]
+// const coins = [
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+//   {
+//     asset: {
+//       name: '비트코인',
+//       ticker: 'BTC/KRW',
+//     },
+//     currentPrice: 75110000,
+//     change: {
+//       rate: 2.01,
+//       price: 1537000,
+//     },
+//     volume: {
+//       number: 265006,
+//       unit: '백만',
+//     },
+//     rise: false,
+//   },
+//   {
+//     asset: {
+//       name: '이더리움',
+//       ticker: 'ETH/KRW',
+//     },
+//     currentPrice: 5053000,
+//     change: {
+//       rate: 0.56,
+//       price: 28000,
+//     },
+//     volume: {
+//       number: 143769,
+//       unit: '백만',
+//     },
+//     rise: true,
+//   },
+// ]
 
 const CoinList = () => {
+  const {ws} = useWebSocket()
+  const [coins, setCoins] = useState([])
+
+  const [coinTest, setCoin] = useState({
+    asset: {
+      name: '비트코인',
+      ticker: 'BTC/KRW',
+    },
+    currentPrice: 75110000,
+    change: {
+      rate: 2.01,
+      price: 1537000,
+    },
+    volume: {
+      number: 265006,
+      unit: '백만',
+    },
+    rise: false,
+  })
+
+  ws.current.onmessage = async (event: MessageEvent) => {
+    const rowData = await event.data.text()
+    const data = JSON.parse(rowData)
+
+    const coin = {
+      asset: {
+        name: '비트코인',
+        ticker: data.code,
+      },
+      currentPrice: data.trade_price,
+      change: {
+        rate: data.change_rate * 100,
+        price: data.change_price,
+      },
+      volume: {
+        number: data.acc_trade_price_24h,
+        unit: '백만',
+      },
+      rise: data.change !== 'FALL',
+    }
+
+    const temp: any = [coin]
+
+    setCoins(temp)
+  }
+
   return (
     <Wrapper>
       <SearchContainer>
@@ -535,6 +583,7 @@ const CoinList = () => {
         ))}
       </Headers>
       <DetailContainer>
+        {/* <CoinListDetail coin={coinTest} /> */}
         {coins.map((coin, index) => (
           <CoinListDetail key={index} coin={coin} />
         ))}

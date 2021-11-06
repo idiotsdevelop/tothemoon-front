@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 `
 
 type SCProps = {
-  increase: boolean
+  rise: boolean
 }
 
 const AssetContainer = styled.div`
@@ -42,7 +42,7 @@ const CurrentPrice = styled.div<SCProps>`
   font-size: 8px;
   font-weight: 700;
   line-height: 12px;
-  color: ${(props) => (props.increase ? '#56BB7C' : '#ec4e6c')};
+  color: ${(props) => (props.rise ? '#56BB7C' : '#ec4e6c')};
 `
 
 const Change = styled.div`
@@ -55,14 +55,14 @@ const ChangeRate = styled.div<SCProps>`
   font-size: 8px;
   font-weight: 700;
   line-height: 12px;
-  color: ${(props) => (props.increase ? '#56BB7C' : '#ec4e6c')};
+  color: ${(props) => (props.rise ? '#56BB7C' : '#ec4e6c')};
 `
 
 const ChangePrice = styled.div<SCProps>`
   font-size: 8px;
   font-weight: 700;
   line-height: 12px;
-  color: ${(props) => (props.increase ? '#56BB7C' : '#ec4e6c')};
+  color: ${(props) => (props.rise ? '#56BB7C' : '#ec4e6c')};
 `
 
 const Volume = styled.div`
@@ -96,21 +96,24 @@ const CoinListDetail: React.FC<Props> = ({coin}) => {
           <Ticker>{coin.asset.ticker}</Ticker>
         </Asset>
       </AssetContainer>
-      <CurrentPrice increase={coin.increase}>
+      <CurrentPrice rise={coin.rise}>
         {coin.currentPrice.toLocaleString()}
       </CurrentPrice>
       <Change>
-        <ChangeRate increase={coin.increase}>
-          {coin.increase ? '+' : '-'}
-          {coin.change.rate}%
+        <ChangeRate rise={coin.rise}>
+          {coin.rise ? '+' : '-'}
+          {coin.change.rate.toFixed(2)}%
         </ChangeRate>
-        <ChangePrice increase={coin.increase}>
-          {coin.increase ? '+' : '-'}
+        <ChangePrice rise={coin.rise}>
+          {coin.rise ? '+' : '-'}
           {coin.change.price.toLocaleString()}
         </ChangePrice>
       </Change>
       <Volume>
-        <VolumeNumber>{coin.volume.number.toLocaleString()}</VolumeNumber>
+        <VolumeNumber>
+          {Math.floor(coin.volume.number / 1000000).toLocaleString()}
+        </VolumeNumber>
+
         <VolumeUnit>{coin.volume.unit}</VolumeUnit>
       </Volume>
     </Wrapper>

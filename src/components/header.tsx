@@ -39,7 +39,7 @@ const Menu = styled.div`
 
 const menues = [
   {title: '거래소', router: '/market'},
-  {title: '고객센터', router: '/'},
+  {title: '고객센터', router: '/customer-center'},
 ]
 
 const Header = () => {

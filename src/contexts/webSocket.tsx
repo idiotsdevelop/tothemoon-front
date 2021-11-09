@@ -20,12 +20,12 @@ export default function WebSocketProvider({
     ws.current.onopen = () => {
       console.log('connected to ' + webSocketUrl)
 
-      ws.current!.send(
-        JSON.stringify([
-          {ticket: 'test'},
-          {type: 'ticker', codes: ['KRW-BTC', 'KRW-ETH']},
-        ]),
-      )
+      // ws.current!.send(
+      //   JSON.stringify([
+      //     {ticket: 'test'},
+      //     {type: 'ticker', codes: ['KRW-BTC', 'KRW-ETH']},
+      //   ]),
+      // )
     }
     ws.current.onclose = (error) => {
       console.log('disconnect from ' + webSocketUrl)

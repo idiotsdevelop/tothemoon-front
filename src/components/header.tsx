@@ -7,6 +7,8 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 60px;
   background-color: #000000;
+  position: sticky;
+  top: 0px;
 `
 
 const HomeContainer = styled.div`

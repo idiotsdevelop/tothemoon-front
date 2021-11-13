@@ -55,8 +55,8 @@ const Header = () => {
       </Link>
       <MenuContainer>
         {menues.map((menu, index) => (
-          <Link to={menu.router} style={{textDecoration: 'none'}}>
-            <Menu key={index}>{menu.title}</Menu>
+          <Link key={index} to={menu.router} style={{textDecoration: 'none'}}>
+            <Menu>{menu.title}</Menu>
           </Link>
         ))}
       </MenuContainer>

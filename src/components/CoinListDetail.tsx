@@ -100,33 +100,39 @@ const TradeUnit = styled.div`
 `
 
 const CoinListDetail: React.FC<Props> = ({coin}) => {
+  const rise = coin.change !== 'FALL'
+
   return (
     <Wrapper>
       <AssetWrapper>
         <StarIcon />
         <Asset>
-          <AssetName>{coin.asset.name}</AssetName>
-          <AssetTicker>{coin.asset.ticker}</AssetTicker>
+          {/* <AssetName>{coin.asset.name}</AssetName> */}
+          <AssetName>비트코인</AssetName>
+          <AssetTicker>{coin.code}</AssetTicker>
         </Asset>
       </AssetWrapper>
-      <CurrentPrice rise={coin.rise}>
-        {coin.currentPrice.toLocaleString()}
+      <CurrentPrice rise={rise}>
+        {coin.trade_price.toLocaleString()}
       </CurrentPrice>
       <ChangeWrapper>
         <Change>
-          <ChangeRate rise={coin.rise}>
-            {coin.rise ? '+' : '-'}
-            {coin.change.rate.toFixed(2)}%
+          <ChangeRate rise={rise}>
+            {rise ? '+' : '-'}
+            {(coin.change_rate * 100).toFixed(2)}%
           </ChangeRate>
-          <ChangePrice rise={coin.rise}>
-            {coin.rise ? '+' : '-'}
-            {coin.change.price.toLocaleString()}
+          <ChangePrice rise={rise}>
+            {rise ? '+' : '-'}
+            {coin.change_price.toLocaleString()}
           </ChangePrice>
         </Change>
       </ChangeWrapper>
       <Trade>
-        <TradeNumber>{coin.trade.number.toLocaleString()}</TradeNumber>
-        <TradeUnit>{coin.trade.unit}</TradeUnit>
+        <TradeNumber>
+          {Math.floor(coin.acc_trade_price_24h / 1000000).toLocaleString()}
+        </TradeNumber>
+        {/* <TradeUnit>{coin.trade.unit}</TradeUnit> */}
+        <TradeUnit>백만</TradeUnit>
       </Trade>
     </Wrapper>
   )

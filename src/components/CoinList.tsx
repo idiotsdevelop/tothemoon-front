@@ -3,7 +3,8 @@ import {ReactComponent as SearchIcon} from '../public/images/svg/search.svg'
 import {ReactComponent as ToolIcon} from '../public/images/svg/tool.svg'
 import {ReactComponent as OrderIcon} from '../public/images/svg/order.svg'
 import CoinListDetail from './CoinListDetail'
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
+import {useGlobal} from '../contexts/global'
 
 const Wrapper = styled.div``
 
@@ -124,6 +125,17 @@ interface Props {
 const CoinList: React.FC<Props> = ({coinListContainerHeight}) => {
   const coinListWrapperRef = useRef<HTMLDivElement>(null)
   const [coinListWrapperHeight, setCoinListWrapperHeight] = useState(0)
+  const {state, dispatch} = useGlobal()
+
+  const coins = useMemo(
+    () =>
+      state.realTimeData
+        ? state.realTimeData.sort(
+            (a: any, b: any) => b.trade_price - a.trade_price,
+          )
+        : [],
+    [state],
+  )
 
   useEffect(() => {
     if (coinListWrapperRef.current) {
@@ -156,79 +168,84 @@ const CoinList: React.FC<Props> = ({coinListContainerHeight}) => {
         </CoinHeaderWrapper>
       </Header>
       <CoinListWrapper height={coinListWrapperHeight}>
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
-        <CoinListDetail coin={coin} />
+        {coins.map((coin: any, index: number) => (
+          <CoinListDetail key={index} coin={coin} />
+        ))}
       </CoinListWrapper>
+      {/* <CoinListWrapper height={coinListWrapperHeight}>
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+        <CoinListDetail coin={coin} />
+      </CoinListWrapper> */}
     </Wrapper>
   )
 }

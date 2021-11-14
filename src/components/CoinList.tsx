@@ -118,20 +118,20 @@ const coin = {
 }
 
 interface Props {
-  coinListHeight: number
+  coinListContainerHeight: number
 }
 
-const CoinList: React.FC<Props> = ({coinListHeight}) => {
+const CoinList: React.FC<Props> = ({coinListContainerHeight}) => {
   const coinListWrapperRef = useRef<HTMLDivElement>(null)
-  const [coinListWrapper, setCoinListWrapper] = useState(0)
+  const [coinListWrapperHeight, setCoinListWrapperHeight] = useState(0)
 
   useEffect(() => {
     if (coinListWrapperRef.current) {
-      setCoinListWrapper(
-        coinListHeight - coinListWrapperRef.current?.clientHeight,
+      setCoinListWrapperHeight(
+        coinListContainerHeight - coinListWrapperRef.current?.clientHeight,
       )
     }
-  }, [coinListHeight, coinListWrapperRef])
+  }, [coinListContainerHeight, coinListWrapperRef])
 
   return (
     <Wrapper>
@@ -155,7 +155,7 @@ const CoinList: React.FC<Props> = ({coinListHeight}) => {
           ))}
         </CoinHeaderWrapper>
       </Header>
-      <CoinListWrapper height={coinListWrapper}>
+      <CoinListWrapper height={coinListWrapperHeight}>
         <CoinListDetail coin={coin} />
         <CoinListDetail coin={coin} />
         <CoinListDetail coin={coin} />

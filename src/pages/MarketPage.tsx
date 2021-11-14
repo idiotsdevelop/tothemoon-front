@@ -46,18 +46,18 @@ const TradeSettings = styled.div`
 
 const MarketPage = () => {
   const coinListContainerRef = useRef<HTMLDivElement>(null)
-  const [coinListHeight, setCoinListHeight] = useState(0)
+  const [coinListContainerHeight, setCoinListContainerHeight] = useState(0)
 
   useEffect(() => {
     if (coinListContainerRef.current) {
-      setCoinListHeight(coinListContainerRef.current?.clientHeight)
+      setCoinListContainerHeight(coinListContainerRef.current?.clientHeight)
     }
   }, [coinListContainerRef])
 
   return (
     <Wrapper>
       <CoinListContainer ref={coinListContainerRef}>
-        <CoinList coinListHeight={coinListHeight} />
+        <CoinList coinListContainerHeight={coinListContainerHeight} />
       </CoinListContainer>
       <CoinChartContainer>차트</CoinChartContainer>
       <OrderBookContainer>호가</OrderBookContainer>
